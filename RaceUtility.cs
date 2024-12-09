@@ -6,8 +6,9 @@ namespace MarioKart
     public class PlayersMenu
     {
         public RaceResults[] raceResults = new RaceResults[100];
-        public string[] resultIDs = new string[100];
-        private static string[] tracks = { "Rainbow Road", "Bowser's Castle", "Mario Circuit", "Luigi's Mansion" };
+        KartsFile kartsFile = new KartsFile();
+        private static string[] tracks = {"Rainbow Road", "Bowser's Castle", "Mario Circuit", "Luigi's Mansion"};
+        string[] resultIDs = new string[100];
 
         public PlayersMenu()
         {
@@ -16,119 +17,126 @@ namespace MarioKart
 
         public void GetAllResultsFromFile()
         {
-            if (File.Exists("results.txt"))
+            StreamReader inFile = new StreamReader("results.txt");
+            RaceResults.SetCount(0);
+            string line = inFile.ReadLine();
+            while (line != null)
             {
-                using (StreamReader inFile = new StreamReader("results.txt"))
-                {
-                    RaceResults.SetCount(0); // Reset the count
-                    string line = inFile.ReadLine();
-
-                    while (line != null)
-                    {
-                        string[] temp = line.Split('#');
-                        raceResults[RaceResults.GetCount()] = new RaceResults(
-                            int.Parse(temp[0]),    // Interaction ID
-                            temp[1],               // Player Email
-                            int.Parse(temp[2]),    // Kart ID
-                            temp[3],               // Race Date
-                            int.Parse(temp[4]),    // Race Time
-                            int.Parse(temp[5]),    // Time Elapsed
-                            temp[6],               // Track
-                            bool.Parse(temp[7])    // Kart Returned
-                        );
-                        resultIDs[RaceResults.GetCount()] = temp[0]; // Store the Interaction ID
-                        RaceResults.IncCount();
-                        line = inFile.ReadLine();
-                    }
-                }
+                string[] temp = line.Split('#');
+                raceResults[RaceResults.GetCount()] = new RaceResults(
+                    int.Parse(temp[0]), temp[1], int.Parse(temp[2]), temp[3], int.Parse(temp[4]), int.Parse(temp[5]), temp[6], bool.Parse(temp[7])
+                );
+                resultIDs[RaceResults.GetCount()] = temp[0];
+                RaceResults.IncCount();
+                line = inFile.ReadLine();
             }
-            else
-            {
-                Console.WriteLine("Results file not found. Starting with an empty results list.");
-            }
+            inFile.Close();
         }
 
         public void SaveResultsToFile()
         {
-            using (StreamWriter outFile = new StreamWriter("results.txt"))
+            StreamWriter outFile = new StreamWriter("results.txt");
+            for (int i = 0; i < RaceResults.GetCount(); i++)
             {
-                for (int i = 0; i < RaceResults.GetCount(); i++)
-                {
-                    outFile.WriteLine(
-                        $"{raceResults[i].GetInteractionID()}#" +
-                        $"{raceResults[i].GetPlayerEmail()}#" +
-                        $"{raceResults[i].GetKartID()}#" +
-                        $"{raceResults[i].GetRaceDate()}#" +
-                        $"{raceResults[i].GetRaceTime()}#" +
-                        $"{raceResults[i].GetTimeElapsed()}#" +
-                        $"{raceResults[i].GetTrack()}#" +
-                        $"{raceResults[i].GetKartReturned()}"
-                    );
-                }
+                outFile.WriteLine(
+                    $"{raceResults[i].GetInteractionID()}#" +
+                    $"{raceResults[i].GetPlayerEmail()}#" +
+                    $"{raceResults[i].GetKartID()}#" +
+                    $"{raceResults[i].GetRaceDate()}#" +
+                    $"{raceResults[i].GetRaceTime()}#" +
+                    $"{raceResults[i].GetTimeElapsed()}#" +
+                    $"{raceResults[i].GetTrack()}#" +
+                    $"{raceResults[i].GetKartReturned()}"
+                );
             }
+            outFile.Close();
         }
 
-        public void ViewAvailableKarts(KartsFile kartsFile)
+        public void ViewAvailableKarts()
         {
+            Console.Clear();
             Console.WriteLine("Available Karts:");
             for (int i = 0; i < Karts.GetCount(); i++)
             {
-                if (kartsFile.karts[i].GetAvailability())
+                if (kartsFile.karts[i] != null && kartsFile.karts[i].GetAvailability())
                 {
                     Console.WriteLine(kartsFile.karts[i].ToString());
                 }
             }
         }
 
-        public void RaceKart(KartsFile kartsFile)
+        public void RaceKart(Karts kartsFile)
         {
+            Console.Clear();
             Console.WriteLine("Enter your email address to race:");
             string email = Console.ReadLine();
 
-            ViewAvailableKarts(kartsFile);
+            ViewAvailableKarts();
 
             Console.WriteLine("Enter the Kart ID to race:");
             int kartID = int.Parse(Console.ReadLine());
 
             int kartIndex = kartsFile.FindID(kartID);
-            if (kartIndex == -1 || !kartsFile.karts[kartIndex].GetAvailability())
+            while (kartID != -1)
             {
-                Console.WriteLine("Invalid Kart ID or Kart is unavailable.");
-                return;
+                if (kartIndex >= 0)
+                {
+                    if (kartsFile.karts[kartIndex].GetAvailability())
+                    {
+                        Console.Clear();
+                        Console.WriteLine(kartsFile.karts[kartIndex].ToString());
+                        Console.WriteLine("\nWould you like to race this kart? (Y/N)");
+                        string input = Console.ReadLine();
+                        if (input.ToUpper() == "Y")
+                        {
+                            AddRaceResult(kartIndex, email, kartID);
+                            kartID = -1;
+                        }
+                        else
+                        {
+                            kartID = -1;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Kart is unavailable, please enter another Kart ID.");
+                        kartID = int.Parse(Console.ReadLine());
+                        kartIndex = kartsFile.FindID(kartID);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Kart ID does not exist. Please enter valid Kart ID.");
+                    kartIndex = kartsFile.FindID(int.Parse(Console.ReadLine()));
+                }
             }
+        }
+
+        public void AddRaceResult(int index, string email, int kartID)
+        {
+            Console.Clear();
+            RaceResults newResult = new RaceResults(
+                RaceResults.GetCount() + 1, email, kartID, DateTime.Now.ToString("yyyy-MM-dd"), 0, 0, "", false
+            );
 
             Console.WriteLine("Select a track:");
             for (int i = 0; i < tracks.Length; i++)
             {
                 Console.WriteLine($"{i + 1}. {tracks[i]}");
             }
-
             int trackChoice = int.Parse(Console.ReadLine());
-            if (trackChoice < 1 || trackChoice > tracks.Length)
-            {
-                Console.WriteLine("Invalid track selection.");
-                return;
-            }
-
             string selectedTrack = tracks[trackChoice - 1];
+            newResult.SetTrack(selectedTrack);
 
             Console.WriteLine("Enter your race time (in seconds):");
             int raceTime = int.Parse(Console.ReadLine());
-
-            RaceResults newResult = new RaceResults(
-                RaceResults.GetCount() + 1,
-                email,
-                kartID,
-                DateTime.Now.ToString("yyyy-MM-dd"),
-                raceTime,
-                raceTime, // Placeholder for time elapsed
-                selectedTrack,
-                false);
+            newResult.SetRaceTime(raceTime);
+            newResult.SetTimeElapsed(raceTime);
 
             raceResults[RaceResults.GetCount()] = newResult;
             RaceResults.IncCount();
 
-            kartsFile.karts[kartIndex].SetAvailability(false);
+            kartsFile.karts[index].SetAvailability(false);
             SaveResultsToFile();
 
             Console.WriteLine("Race completed and result saved.");
@@ -136,6 +144,7 @@ namespace MarioKart
 
         public void ViewRacedKarts(string email)
         {
+            Console.Clear();
             Console.WriteLine($"Karts raced by {email}:");
             for (int i = 0; i < RaceResults.GetCount(); i++)
             {
@@ -146,8 +155,9 @@ namespace MarioKart
             }
         }
 
-        public void ReturnKart(KartsFile kartsFile)
+        public void ReturnKart()
         {
+            Console.Clear();
             Console.WriteLine("Enter your email address:");
             string email = Console.ReadLine();
 
