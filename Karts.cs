@@ -3,16 +3,17 @@ namespace MarioKart{
     {
         // Private fields
         private int kartID;
-        private string kartName;
-        private string size; 
+        private string kartName; // Non-nullable field warning
+        private string size; // Non-nullable field warning
         private bool availability;
         private static int count;
 
         // Default constructor
         public Karts()
         {
-            
-            
+            // Initialize non-nullable fields to default values
+            this.kartName = string.Empty; // Added
+            this.size = string.Empty; // Added
         }
 
         // Parameterized constructor
@@ -41,7 +42,7 @@ namespace MarioKart{
         }
         public void SetName(string kartName)
         {
-            this.kartName = kartName;
+            this.kartName = kartName ?? throw new ArgumentNullException(nameof(kartName)); // Handle null value
         }
 
         // Getter and Setter for size
@@ -50,16 +51,16 @@ namespace MarioKart{
             return size;
         }
         public void SetSize(string size)
-    {
-        if (IsValidSize(size))
         {
-            this.size = size;
+            if (IsValidSize(size))
+            {
+                this.size = size;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid size. Size must be 'small', 'medium', or 'large'.");
+            }
         }
-        else
-        {
-            throw new ArgumentException("Invalid size. Size must be 'small', 'medium', or 'large'.");
-        }
-    }
 
         // Getter and Setter for availability
         public bool GetAvailability()
@@ -101,9 +102,9 @@ namespace MarioKart{
             return $"Kart ID: {kartID}, Name: {kartName}, Size: {size}, Available: {availability}";
         }
         public static bool IsValidSize(string size)
-    {
-        return size == "small" || size == "medium" || size == "large";
-    }
+        {
+            return size == "small" || size == "medium" || size == "large";
+        }
 
     }
 }
