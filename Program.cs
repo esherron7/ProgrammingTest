@@ -164,10 +164,38 @@ namespace MarioKartApp
         }
 
         static void ReportMenu()
+    {
+    RaceReport raceReport = new RaceReport();
+    string reportChoice = "";
+    while (reportChoice != "5")
+    {
+        Console.Clear();
+        System.Console.WriteLine("Report Menu:");
+        System.Console.WriteLine("1. Daily Kart Race Report\n2. Karts Currently Being Used in a Race\n3. Average Race Results by Kart Size\n4. Top 5 Karts Used in Tournament\n5. Return to Previous Menu");
+        reportChoice = GetMenuChoice();
+        switch (reportChoice)
         {
-            System.Console.WriteLine("Report Menu Goes Here");
-            PressAnyKeyToContinue();
+            case "1":
+                raceReport.ViewDailyKartRaceReport();
+                break;
+            case "2":
+                raceReport.ViewKartsCurrentlyInRace();
+                break;
+            case "3":
+                raceReport.ViewAverageRaceResultsByKartSize();
+                break;
+            case "4":
+                raceReport.ViewTop5KartsInTournament();
+                break;
+            case "5":
+                break;
+            default:
+                System.Console.WriteLine("Invalid choice, please try again.");
+                break;
         }
+        PressAnyKeyToContinue();
+    }
+    }
 
         static void Goodbye()
         {
