@@ -6,20 +6,23 @@ namespace MarioKart
     public class PlayersMenu
     {
         public RaceResults[] raceResults = new RaceResults[100];
-        KartsFile kartsFile = new KartsFile();
+        KartsFile kartsFile = new KartsFile(); // Instantiate KartsFile
         private static string[] tracks = {"Rainbow Road", "Bowser's Castle", "Mario Circuit", "Luigi's Mansion"};
         string[] resultIDs = new string[100];
+    
 
         public PlayersMenu()
         {
             GetAllResultsFromFile();
         }
 
+       
+
         public void GetAllResultsFromFile()
         {
             StreamReader inFile = new StreamReader("results.txt");
             RaceResults.SetCount(0);
-            string line = inFile.ReadLine();
+            string? line = inFile.ReadLine(); // Handle potential null
             while (line != null)
             {
                 string[] temp = line.Split('#');
@@ -52,29 +55,18 @@ namespace MarioKart
             outFile.Close();
         }
 
-        public void ViewAvailableKarts()
-        {
-            Console.Clear();
-            Console.WriteLine("Available Karts:");
-            for (int i = 0; i < Karts.GetCount(); i++)
-            {
-                if (kartsFile.karts[i] != null && kartsFile.karts[i].GetAvailability())
-                {
-                    Console.WriteLine(kartsFile.karts[i].ToString());
-                }
-            }
-        }
+        
 
-        public void RaceKart(Karts kartsFile)
+        public void RaceKart()
         {
             Console.Clear();
             Console.WriteLine("Enter your email address to race:");
-            string email = Console.ReadLine();
+            string? email = Console.ReadLine(); // Handle potential null
 
-            ViewAvailableKarts();
-
+            
+            kartsFile.ViewAvailableKarts();
             Console.WriteLine("Enter the Kart ID to race:");
-            int kartID = int.Parse(Console.ReadLine());
+            int kartID = int.Parse(Console.ReadLine() ?? "0"); // Handle potential null
 
             int kartIndex = kartsFile.FindID(kartID);
             while (kartID != -1)
@@ -86,8 +78,8 @@ namespace MarioKart
                         Console.Clear();
                         Console.WriteLine(kartsFile.karts[kartIndex].ToString());
                         Console.WriteLine("\nWould you like to race this kart? (Y/N)");
-                        string input = Console.ReadLine();
-                        if (input.ToUpper() == "Y")
+                        string? input = Console.ReadLine(); // Handle potential null
+                        if (input?.ToUpper() == "Y")
                         {
                             AddRaceResult(kartIndex, email, kartID);
                             kartID = -1;
@@ -100,14 +92,14 @@ namespace MarioKart
                     else
                     {
                         Console.WriteLine("Kart is unavailable, please enter another Kart ID.");
-                        kartID = int.Parse(Console.ReadLine());
+                        kartID = int.Parse(Console.ReadLine() ?? "0"); // Handle potential null
                         kartIndex = kartsFile.FindID(kartID);
                     }
                 }
                 else
                 {
                     Console.WriteLine("Kart ID does not exist. Please enter valid Kart ID.");
-                    kartIndex = kartsFile.FindID(int.Parse(Console.ReadLine()));
+                    kartIndex = kartsFile.FindID(int.Parse(Console.ReadLine() ?? "0")); // Handle potential null
                 }
             }
         }
@@ -124,12 +116,12 @@ namespace MarioKart
             {
                 Console.WriteLine($"{i + 1}. {tracks[i]}");
             }
-            int trackChoice = int.Parse(Console.ReadLine());
+            int trackChoice = int.Parse(Console.ReadLine() ?? "0"); // Handle potential null
             string selectedTrack = tracks[trackChoice - 1];
             newResult.SetTrack(selectedTrack);
 
             Console.WriteLine("Enter your race time (in seconds):");
-            int raceTime = int.Parse(Console.ReadLine());
+            int raceTime = int.Parse(Console.ReadLine() ?? "0"); // Handle potential null
             newResult.SetRaceTime(raceTime);
             newResult.SetTimeElapsed(raceTime);
 
@@ -159,10 +151,10 @@ namespace MarioKart
         {
             Console.Clear();
             Console.WriteLine("Enter your email address:");
-            string email = Console.ReadLine();
+            string? email = Console.ReadLine(); // Handle potential null
 
             Console.WriteLine("Enter the Kart ID to return:");
-            int kartID = int.Parse(Console.ReadLine());
+            int kartID = int.Parse(Console.ReadLine() ?? "0"); // Handle potential null
 
             bool found = false;
             for (int i = 0; i < RaceResults.GetCount(); i++)

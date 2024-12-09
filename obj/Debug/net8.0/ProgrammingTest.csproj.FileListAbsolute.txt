@@ -1,0 +1,15 @@
+C:\Users\eoinh\OneDrive\Documents\MIS\Fall2024Repos\LAB\ProgrammingTest\obj\Debug\net8.0\ProgrammingTest.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\eoinh\OneDrive\Documents\MIS\Fall2024Repos\LAB\ProgrammingTest\obj\Debug\net8.0\ProgrammingTest.AssemblyInfoInputs.cache
+C:\Users\eoinh\OneDrive\Documents\MIS\Fall2024Repos\LAB\ProgrammingTest\obj\Debug\net8.0\ProgrammingTest.AssemblyInfo.cs
+C:\Users\eoinh\OneDrive\Documents\MIS\Fall2024Repos\LAB\ProgrammingTest\obj\Debug\net8.0\ProgrammingTest.csproj.CoreCompileInputs.cache
+C:\Users\eoinh\OneDrive\Documents\MIS\Fall2024Repos\LAB\ProgrammingTest\obj\Debug\net8.0\ProgrammingTest.sourcelink.json
+C:\Users\eoinh\OneDrive\Documents\MIS\Fall2024Repos\LAB\ProgrammingTest\bin\Debug\net8.0\ProgrammingTest.exe
+C:\Users\eoinh\OneDrive\Documents\MIS\Fall2024Repos\LAB\ProgrammingTest\bin\Debug\net8.0\ProgrammingTest.deps.json
+C:\Users\eoinh\OneDrive\Documents\MIS\Fall2024Repos\LAB\ProgrammingTest\bin\Debug\net8.0\ProgrammingTest.runtimeconfig.json
+C:\Users\eoinh\OneDrive\Documents\MIS\Fall2024Repos\LAB\ProgrammingTest\bin\Debug\net8.0\ProgrammingTest.dll
+C:\Users\eoinh\OneDrive\Documents\MIS\Fall2024Repos\LAB\ProgrammingTest\bin\Debug\net8.0\ProgrammingTest.pdb
+C:\Users\eoinh\OneDrive\Documents\MIS\Fall2024Repos\LAB\ProgrammingTest\obj\Debug\net8.0\ProgrammingTest.dll
+C:\Users\eoinh\OneDrive\Documents\MIS\Fall2024Repos\LAB\ProgrammingTest\obj\Debug\net8.0\refint\ProgrammingTest.dll
+C:\Users\eoinh\OneDrive\Documents\MIS\Fall2024Repos\LAB\ProgrammingTest\obj\Debug\net8.0\ProgrammingTest.pdb
+C:\Users\eoinh\OneDrive\Documents\MIS\Fall2024Repos\LAB\ProgrammingTest\obj\Debug\net8.0\ProgrammingTest.genruntimeconfig.cache
+C:\Users\eoinh\OneDrive\Documents\MIS\Fall2024Repos\LAB\ProgrammingTest\obj\Debug\net8.0\ref\ProgrammingTest.dll

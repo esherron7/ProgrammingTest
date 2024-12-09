@@ -1,0 +1,51 @@
+1#Sprinter#Medium#False
+2#Jetsetter#Small#True
+3#Koopa Clown#Large#True
+4#Mach 8#Medium#False
+5#Pipe Frame#Small#True
+6#Biddybuggy#Small#False
+7#Wild Wiggler#Medium#True
+8#Standard Kart#Medium#False
+9#Flame Rider#Medium#True
+10#Steel Driver#Large#False
+11#Bone Rattler#Large#True
+12#Blue Falcon#Small#True
+13#Splat Buggy#Small#False
+14#Circuit Special#Medium#True
+15#Gold Standard#Medium#False
+16#Tanooki Kart#Medium#True
+17#Badwagon#Large#False
+18#Landship#Small#True
+19#Shoe Kart#Small#False
+20#P-Wing#Medium#True
+21#Streetle#Medium#False
+22#Turbo Yoshi#Small#True
+23#Egg 1#Medium#True
+24#Cloud 9#Small#False
+25#Comet#Medium#True
+26#Prancer#Medium#False
+27#Tri-Speeder#Large#True
+28#Sport Coupe#Medium#True
+29#Sneeker#Small#False
+30#Mr. Scooty#Small#True
+31#Yoshi Bike#Small#False
+32#Daytripper#Small#True
+33#DK Jumbo#Large#False
+35#Bitty Buggy#Small#False
+36#Cat Cruiser#Medium#True
+37#Jet Bike#Medium#False
+38#Bumble V#Small#True
+39#Koopa Dasher#Small#False
+40#Zucchini#Medium#True
+41#W 25 Silver Arrow#Medium#False
+42#Honeycoupe#Medium#True
+43#Phantom#Large#False
+44#Blaze Rider#Medium#True
+45#Bowser Bike#Large#True
+46#Bullet Blaster#Small#False
+47#Standard ATV#large#False
+48#Pipeframe XL#Large#False
+49#Cheep Charger#Small#True
+50#Gla#Medium#False
+54#Sneakster#Medium#True
+55#Banana Car#Large#True

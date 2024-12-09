@@ -1,0 +1,9 @@
+1#Helene.renninger@email.com#1#10/28/24#500#520#Rainbow Road#False
+2#Jeff.lucas@email.com#4#10/20/24#460#500#Bowser's Castle#True
+3#samuel.jordan@email.com#2#11/15/24#480#510#Mario Circuit#False
+4#alex.smith@email.com#3#12/01/24#470#495#Luigi's Mansion#True
+5#jane.doe@email.com#5#12/08/24#455#480#Rainbow Road#False
+6#john.doe@email.com#6#11/29/24#490#515#Bowser's Castle#True
+7#mary.johnson@email.com#7#12/05/24#460#485#Mario Circuit#False
+8#patricia.brown@email.com#8#12/07/24#475#500#Luigi's Mansion#True
+9#eoinherron#30#2024-12-09#500#500#Rainbow Road#False

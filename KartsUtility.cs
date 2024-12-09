@@ -7,7 +7,9 @@ namespace MarioKart
 
         public KartsFile()
         {
+
         }
+        
 
         public void GetAllKartsFromFile()
         {
@@ -26,6 +28,18 @@ namespace MarioKart
                 }
             }
         }
+        public void ViewAvailableKarts()
+{
+    Console.Clear();
+    Console.WriteLine("Available Karts:");
+    for (int i = 0; i < Karts.GetCount(); i++)
+    {
+        if (this.karts[i] != null && this.karts[i].GetAvailability())
+        {
+            Console.WriteLine(this.karts[i].ToString());
+        }
+    }
+}
 
         public void AddKart()
         {
@@ -55,11 +69,11 @@ namespace MarioKart
             }
 
             Console.WriteLine("Please enter the name of the Kart you would like to add:");
-            newKart.SetName(Console.ReadLine());
+            newKart.SetName(Console.ReadLine() ?? throw new ArgumentNullException()); // Handle null value
             Console.WriteLine("Please enter the size of the Kart (small/medium/large):");
-            newKart.SetSize(Console.ReadLine());
+            newKart.SetSize(Console.ReadLine() ?? throw new ArgumentNullException()); // Handle null value
             Console.WriteLine("Would you like this cart to be available? (Y/N):");
-            newKart.SetAvailability(Console.ReadLine().ToUpper() == "Y");
+            newKart.SetAvailability(Console.ReadLine()?.ToUpper() == "Y");
 
             karts[Karts.GetCount()] = newKart;
             Karts.IncCount();
@@ -86,7 +100,7 @@ namespace MarioKart
             string newName = Console.ReadLine();
             if (!string.IsNullOrEmpty(newName))
             {
-                editKart.SetName(newName);
+                editKart.SetName(newName ?? throw new ArgumentNullException()); // Handle null value
             }
 
             Console.WriteLine("Current Size: " + editKart.GetSize());
@@ -94,7 +108,7 @@ namespace MarioKart
             string newSize = Console.ReadLine();
             if (!string.IsNullOrEmpty(newSize))
             {
-                editKart.SetSize(newSize);
+                editKart.SetSize(newSize ?? throw new ArgumentNullException()); // Handle null value
             }
 
             Console.WriteLine("Current Availability: " + (editKart.GetAvailability() ? "Yes" : "No"));
@@ -111,8 +125,10 @@ namespace MarioKart
 
         public int FindID(int kartID)
         {
+            GetAllKartsFromFile();
             for (int i = 0; i < Karts.GetCount(); i++)
             {
+                System.Console.WriteLine(i);
                 if (kartID == karts[i].GetID())
                 {
                     return i;
@@ -173,50 +189,48 @@ namespace MarioKart
             Console.WriteLine("Kart deleted successfully.");
         }
         public void PrintAllKartsBySize()
-    {
-    string[] smallKarts = new string[100];
-    string[] mediumKarts = new string[100];
-    string[] largeKarts = new string[100];
-
-    int smallCount = 0;
-    int mediumCount = 0;
-    int largeCount = 0;
-
-    for (int i = 0; i < Karts.GetCount(); i++)
-    {
-        if (karts[i].GetSize().ToLower() == "small")
         {
-            smallKarts[smallCount++] = ids[i];
-        }
-        else if (karts[i].GetSize().ToLower() == "medium")
-        {
-            mediumKarts[mediumCount++] = ids[i];
-        }
-        else if (karts[i].GetSize().ToLower() == "large")
-        {
-            largeKarts[largeCount++] = ids[i];
-        }
-    }
+            string[] smallKarts = new string[100];
+            string[] mediumKarts = new string[100];
+            string[] largeKarts = new string[100];
 
-    Console.WriteLine("Small Kart IDs:");
-    for (int i = 0; i < smallCount; i++)
-    {
-        Console.WriteLine(smallKarts[i]);
-    }
+            int smallCount = 0;
+            int mediumCount = 0;
+            int largeCount = 0;
 
-    Console.WriteLine("\nMedium Kart IDs:");
-    for (int i = 0; i < mediumCount; i++)
-    {
-        Console.WriteLine(mediumKarts[i]);
-    }
+            for (int i = 0; i < Karts.GetCount(); i++)
+            {
+                if (karts[i].GetSize().ToLower() == "small")
+                {
+                    smallKarts[smallCount++] = ids[i];
+                }
+                else if (karts[i].GetSize().ToLower() == "medium")
+                {
+                    mediumKarts[mediumCount++] = ids[i];
+                }
+                else if (karts[i].GetSize().ToLower() == "large")
+                {
+                    largeKarts[largeCount++] = ids[i];
+                }
+            }
 
-    Console.WriteLine("\nLarge Kart IDs:");
-    for (int i = 0; i < largeCount; i++)
-    {
-        Console.WriteLine(largeKarts[i]);
-    }
-    }
+            Console.WriteLine("Small Kart IDs:");
+            for (int i = 0; i < smallCount; i++)
+            {
+                Console.WriteLine(smallKarts[i]);
+            }
+
+            Console.WriteLine("\nMedium Kart IDs:");
+            for (int i = 0; i < mediumCount; i++)
+            {
+                Console.WriteLine(mediumKarts[i]);
+            }
+
+            Console.WriteLine("\nLarge Kart IDs:");
+            for (int i = 0; i < largeCount; i++)
+            {
+                Console.WriteLine(largeKarts[i]);
+            }
+        }
     }
 }
-
-
